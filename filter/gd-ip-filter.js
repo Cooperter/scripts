@@ -1,5 +1,7 @@
 function filter(proxies) {
   return proxies.map(proxy => {
-    return new RegExp('(?<![.\\d])\\d{3}').test(proxy.server);
+    const { server } = proxy
+    const firstIp = server.substring(0, server.indexOf('.'))
+    return new RegExp('\\d{3}').test(firstIp);
   });
 }
