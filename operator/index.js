@@ -5,22 +5,21 @@ function operator(proxies) {
   const port = _.get($arguments, 'port')
   const path = _.get($arguments, 'path')
   const method = _.get($arguments, 'method')
-  const net = _.get($arguments, 'network')
 
   return proxies.map((p = {}) => {
-    let network = _.get(p, 'network', net ? net : undefined)
+    let network = _.get(p, 'network', 'http')
     const type = _.get(p, 'type')
-
-    // vmess-http 设置默认值
-    if (_.includes(['vmess', 'vless'], type) && network === 'http' && net === 'http') {
-      _.set(p, 'network', net)
-      _.set(p, 'http-opts.path', _.get(p, 'http-opts.path', ['/']))
-      _.set(p, 'http-opts.headers.method', _.get(p, 'http-opts.headers.method', ['GET']))
-      _.set(p, 'http-opts.headers.Host', _.get(p, 'http-opts.headers.Host', []))
-    }
 
     /* 只修改 vmess 和 vless */
     if (_.includes(['vmess', 'vless'], type) && network) {
+
+      // vmess-http 设置默认值
+      if (network === 'http') {
+        _.set(p, 'network', net)
+        _.set(p, 'http-opts.path', _.get(p, 'http-opts.path', ['/']))
+        _.set(p, 'http-opts.headers.method', _.get(p, 'http-opts.headers.method', ['GET']))
+        _.set(p, 'http-opts.headers.Host', _.get(p, 'http-opts.headers.Host', []))
+      }
 
       if (host) {
         if (_.get(p, 'tls')) {
