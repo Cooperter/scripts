@@ -12,7 +12,7 @@ function operator(proxies) {
     const type = _.get(p, 'type')
 
     // vmess-http 设置默认值
-    if (net === 'http') {
+    if (network === 'http' && net === 'http') {
       _.set(p, 'network', net)
       _.set(p, 'http-opts.path', _.get(p, 'http-opts.path', ['/']))
       _.set(p, 'http-opts.headers.method', _.get(p, 'http-opts.headers.method', ['GET']))
