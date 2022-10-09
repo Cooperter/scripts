@@ -63,6 +63,10 @@ function operator(proxies) {
           _.set(p, 'plugin-opts.host', host)
         }
       }
+    } else if ('trojan' === type) {
+      if (host) {
+        _.set(p, 'sni', host)
+      }
     }
     return p
   })
