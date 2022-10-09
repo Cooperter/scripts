@@ -7,7 +7,7 @@ function operator(proxies) {
   const method = _.get($arguments, 'method')
 
   return proxies.map((p = {}) => {
-    let network = _.get(p, 'network', 'http')
+    const network = _.get(p, 'network', 'http')
     const type = _.get(p, 'type')
 
     /* 只修改 vmess 和 vless */
@@ -15,7 +15,7 @@ function operator(proxies) {
 
       // vmess-http 设置默认值
       if (network === 'http') {
-        _.set(p, 'network', net)
+        _.set(p, 'network', network)
         _.set(p, 'http-opts.path', _.get(p, 'http-opts.path', ['/']))
         _.set(p, 'http-opts.headers.method', _.get(p, 'http-opts.headers.method', ['GET']))
         _.set(p, 'http-opts.headers.Host', _.get(p, 'http-opts.headers.Host', []))
