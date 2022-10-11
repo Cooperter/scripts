@@ -1,4 +1,4 @@
-function operator(proxies) {
+function operator(proxies, targetPlatform) {
   const _ = lodash
 
   const host = _.get($arguments, 'host')
@@ -22,6 +22,12 @@ function operator(proxies) {
       }
 
       if (host) {
+        
+        if (targetPlatform === 'Clash') {
+           /* 把 非 server 的部分都设置为 host */
+          _.set(p, 'servername', host)
+        }
+
         if (_.get(p, 'tls')) {
           /* skip-cert-verify 在这里设为 true 有需求就再加一个节点操作吧 */
           _.set(p, 'skip-cert-verify', true)
