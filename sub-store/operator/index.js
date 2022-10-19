@@ -2,8 +2,14 @@ function operator(proxies, targetPlatform) {
   const _ = lodash
 
   const host = _.get($arguments, 'host')
-  const port = _.get($arguments, 'port')
-  const path = _.get($arguments, 'path')
+  const hostPrefix = _.get($arguments, 'hostPrefix')
+  const hostSuffix = _.get($arguments, 'hostSuffix')
+  const port = _.get($arguments, 'port') 
+  const portPrefix = _.get($arguments, 'portPrefix')
+  const portSuffix = _.get($arguments, 'portSuffix')
+  const path = _.get($arguments, 'path') 
+  const pathPrefix = _.get($arguments, 'pathPrefix')
+  const pathSuffix = _.get($arguments, 'pathSuffix')
   const method = _.get($arguments, 'method')
 
   return proxies.map((p = {}) => {
@@ -22,6 +28,12 @@ function operator(proxies, targetPlatform) {
       }
 
       if (host) {
+        if (hostPrefix) {
+          _.set(p, 'name', `${hostPrefix}${p.name}`)
+        }
+        if (hostSuffix) {
+          _.set(p, 'name', `${p.name}${hostSuffix}`)
+        }
         
         if (targetPlatform === 'Clash') {
            /* 把 非 server 的部分都设置为 host */
@@ -49,9 +61,21 @@ function operator(proxies, targetPlatform) {
       }
       if (port) {
         _.set(p, 'port', port)
+        if (portPrefix) {
+          _.set(p, 'name', `${portPrefix}${p.name}`)
+        }
+        if (portSuffix) {
+          _.set(p, 'name', `${p.name}${portSuffix}`)
+        }
       }
 
       if (path && network) {
+        if (pathPrefix) {
+          _.set(p, 'name', `${pathPrefix}${p.name}`)
+        }
+        if (pathSuffix) {
+          _.set(p, 'name', `${p.name}${pathSuffix}`)
+        }
         if (network === 'ws') {
           _.set(p, 'ws-opts.path', path)
         } else if (network === 'h2') {
