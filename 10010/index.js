@@ -597,7 +597,9 @@ async function onLine({appId, token_online}) {
     }
     const headers = $.lodash_get(res, 'headers') || {}
     cookie = $.lodash_get(headers, 'set-cookie') || $.lodash_get(headers, 'Set-Cookie')
-    cookie = cookie.map($.cktough.Cookie.parse).toString()
+    if (Array.isArray(cookie)) {
+      cookie = cookie.join('; ')
+    }
     console.log(`♻️ Cookie`)
     console.log(cookie)
     if (!cookie) {
@@ -635,8 +637,9 @@ async function sign({ mobile, password, appId }) {
   }
   const headers = $.lodash_get(res, 'headers') || {}
   let cookie = $.lodash_get(headers, 'set-cookie') || $.lodash_get(headers, 'Set-Cookie')
-  cookie = cookie.map($.cktough.Cookie.parse).toString()
-  $.ckjar.setCookieSync(cookie, 'https://m.client.10010.com/', {})
+  if (Array.isArray(cookie)) {
+    cookie = cookie.join('; ')
+  }
   console.log(`🍪 登录 Cookie`)
   console.log(cookie)
   if (!cookie) {
