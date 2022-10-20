@@ -88,7 +88,8 @@ const detail = {}
   }
   if (needSign) {
     try {
-      await onLine({appId, token_online})
+      const onLineRes = await onLine({appId, token_online})
+      cookie= $.lodash_get(onLineRes, 'cookie')
     } catch (error) {
       $.log('ℹ️ 自动登录')
       const signRes = await sign({ mobile, password, appId })
@@ -590,8 +591,6 @@ async function onLine({appId, token_online}) {
     try {
       body = JSON.parse(body)
     } catch (e) {}
-    $.log('↓ res body')
-    console.log($.toStr(body))
     if ($.lodash_get(body, 'code') !== '0') {
       throw new Error($.lodash_get(body, 'dsc') || '未知错误')
     }
@@ -607,6 +606,7 @@ async function onLine({appId, token_online}) {
     }
     $.setdata(cookie, KEY_COOKIE)
   }
+  return { cookie }
 }
 async function sign({ mobile, password, appId }) {
   $.log('〽️ 开始进行登录')
