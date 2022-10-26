@@ -6,7 +6,7 @@ var navigator=navigator||{};var window=window||{};ASN1={};Hex={};Base64S={};var 
 let namespace = 'xream'
 if (typeof __filename !== 'undefined') {
   console.log('尝试解析文件名称')
-  let matchedFilename = String(__filename).match(/(\w+)-10010/)
+  let matchedFilename = String(__filename).match(/\/_(.*)_10010/)
   console.log(matchedFilename)
   if (matchedFilename&&matchedFilename[1]) {
     namespace = matchedFilename[1]
@@ -24,8 +24,8 @@ $.isTile = () => $.isStash() && typeof $script != 'undefined' && $.lodash_get($s
 
 const KEY_INITED = `@${namespace}.10010.inited`
 const KEY_DISABLED = `@${namespace}.10010.disabled`
+const KEY_DEBUG = `@${namespace}.10010.debug`
 const KEY_COOKIE = `@${namespace}.10010.cookie`
-const KEY_TOKEN_ONLINE = `@${namespace}.10010.token_online`
 const KEY_APPID = `@${namespace}.10010.appId`
 const KEY_MOBILE = `@${namespace}.10010.mobile`
 const KEY_PASSWORD = `@${namespace}.10010.password`
@@ -46,6 +46,7 @@ const KEY_PANEL_NOTIFY_DISABLED = `@${namespace}.10010.panelNotifyDisabled`
 const KEY_TILE_NOTIFY_DISABLED = `@${namespace}.10010.tileNotifyDisabled`
 const KEY_NOTIFY_DISABLED = `@${namespace}.10010.notifyDisabled`
 const KEY_BARK = `@${namespace}.10010.bark`
+const KEY_TOKEN_ONLINE = `@${namespace}.10010.tokenOnline`
 
 $.setdata(new Date().toLocaleString('zh'), KEY_INITED)
 
@@ -58,6 +59,7 @@ const detail = {}
   //   $.log('ℹ️ 不是 request')
 
   const disabled = $.getdata(KEY_DISABLED)
+  const debug = String($.getdata(KEY_DEBUG)) === 'true'
   if (String(disabled) === 'true') {
     $.log('ℹ️ 已禁用')
     return
@@ -66,7 +68,7 @@ const detail = {}
   const appId = $.getdata(KEY_APPID)
   const mobile = $.getdata(KEY_MOBILE)
   const password = $.getdata(KEY_PASSWORD)
-  const token_online = $.getdata(KEY_TOKEN_ONLINE)
+  let tokenOnline = $.getdata(KEY_TOKEN_ONLINE)
 
   if (!cookie && (!appId || !mobile || !password)) {
     throw new Error('⚠️ 请配置 Cookie 或 appId, 手机号(mobile), 密码(password) 记得保存')
@@ -82,19 +84,41 @@ const detail = {}
       }
       needSign = true
       $.log('ℹ️ Cookie 无效, 将尝试自动登录')
+      if(debug){
+        await notify(namespace === 'xream' ? '10010' : `10010(${namespace})`, `❌`, `ℹ️ Cookie 无效, 将尝试自动登录`, {})
+      }
     }
   } else {
     needSign = true
   }
-  if (needSign) {
-    try {
-      const onLineRes = await onLine({appId, token_online})
-      cookie= $.lodash_get(onLineRes, 'cookie')
-    } catch (error) {
-      $.log('ℹ️ 自动登录')
-      const signRes = await sign({ mobile, password, appId })
-      cookie = $.lodash_get(signRes, 'cookie')
+  if (needSign && tokenOnline) {
+    $.log('ℹ️ 将使用 tokenOnline 自动登录')
+    if(debug){
+      await notify(namespace === 'xream' ? '10010' : `10010(${namespace})`, `ℹ️`, `将使用 tokenOnline 自动登录`, {})
     }
+    try {
+      await online({ tokenOnline, appId })
+      cookie = $.getdata(KEY_COOKIE)
+      tokenOnline = $.getdata(KEY_TOKEN_ONLINE)
+      needSign = false
+      await notify(namespace === 'xream' ? '10010' : `10010(${namespace})`, `✅`, `使用 tokenOnline 自动登录`, {})
+    } catch (e) {
+      $.log('❌ 使用 tokenOnline 自动登录失败')
+      console.log(e)
+      if(debug){
+        await notify(namespace === 'xream' ? '10010' : `10010(${namespace})`, `❌ 使用 tokenOnline 自动登录失败`, `${$.lodash_get(e, 'message') || $.lodash_get(e, 'error') || e}`, {})
+      }
+    }
+  }
+  if (needSign) {
+    $.log('ℹ️ 自动登录')
+    const signRes = await sign({ mobile, password, appId })
+    cookie = $.lodash_get(signRes, 'cookie')
+    if(debug){
+      await notify(namespace === 'xream' ? '10010' : `10010(${namespace})`, `✅`, `自动登录`, {})
+    }
+    await query({ cookie })
+  } else {
     await query({ cookie })
   }
 
@@ -105,6 +129,13 @@ const detail = {}
     await notify(namespace === 'xream' ? '10010' : `10010(${namespace})`, `❌`, `${$.lodash_get(e, 'message') || $.lodash_get(e, 'error') || e}`, {})
   })
   .finally(() => {
+    if ($.isNode()) {
+      try {
+        require('fs').writeFileSync(namespace === 'xream' ? '10010.txt' : `10010_${namespace}.txt`, $.getdata(KEY_COOKIE), 'utf-8')
+      } catch (e) {
+        console.error(e);
+      }
+    }
     if ($.isV2p()) {
       $.done()
     } else if ($.isPanel()) {
@@ -442,7 +473,7 @@ ${pkgs.join('\n')}
     },
   }
   $.setdata(detailText, KEY_DETAIL_TEXT)
-  if (!lastDetail || durationFree < 0 || durationNotFree < 0) {
+  if (durationFree < 0 || durationNotFree < 0) {
     $.setjson(detail, KEY_DETAIL)
     console.log(`流量变化 < 0 可能是什么包失效了(比如月初)或者联通接口问题 本次不发送`)
   } else {
@@ -567,46 +598,34 @@ function renderTpl(tpl, data) {
     .replace(/  +/g, ' ')
 }
 
-async function onLine({appId, token_online}) {
-  $.log('〽️ 开始Cookie续期')
+async function info({ cookie }) {
+  $.log('〽️ 开始进行信息查询')
   const res = await $.http.post({
-    url: 'https://m.client.10010.com/mobileService/onLine.htm',
-    body: transParams({
-      appId,
-      token_online: token_online,
-      version: 'iphone_c@9.0100',
-      reqtime: $.time('yyyy-MM-dd HH:mm:ss'),
-      step: 'bindlist'
-    }),
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    }
+    url: 'https://m.client.10010.com//mobileserviceimportant/home/queryUserInfoSeven',
+    headers: { cookie },
   })
-
   const status = $.lodash_get(res, 'status')
   $.log('↓ res status')
   $.log(status)
-  if (status == 200) {
-    let body = String($.lodash_get(res, 'body') || $.lodash_get(res, 'rawBody'))
-    try {
-      body = JSON.parse(body)
-    } catch (e) {}
-    if ($.lodash_get(body, 'code') !== '0') {
-      throw new Error($.lodash_get(body, 'dsc') || '未知错误')
+  let body = String($.lodash_get(res, 'body') || $.lodash_get(res, 'rawBody'))
+  try {
+    body = JSON.parse(body)
+  } catch (e) {}
+  $.log('↓ res body')
+  console.log($.toStr(body))
+  if ($.lodash_get(body, 'code') !== 'Y') {
+    if (String(body) === '999999' || String(body) === '999998') {
+      throw new Error('Cookie 无效')
     }
-    const headers = $.lodash_get(res, 'headers') || {}
-    cookie = $.lodash_get(headers, 'set-cookie') || $.lodash_get(headers, 'Set-Cookie')
-    if (Array.isArray(cookie)) {
-      cookie = cookie.join('; ')
-    }
-    console.log(`♻️ Cookie`)
-    console.log(cookie)
-    if (!cookie) {
-      throw new Error(`♻️ Cookie 为空`)
-    }
-    $.setdata(cookie, KEY_COOKIE)
+    throw new Error('未知错误')
   }
-  return { cookie }
+  const title = $.lodash_get(body, 'flush_date_time')
+  const dataList = $.lodash_get(body, 'data.dataList') || []
+  const content = dataList
+    .map(i => `${$.lodash_get(i, 'remainTitle')} ${$.lodash_get(i, 'number')}${$.lodash_get(i, 'unit')}`)
+    .join('; ')
+  console.log(title)
+  console.log(content)
 }
 async function sign({ mobile, password, appId }) {
   $.log('〽️ 开始进行登录')
@@ -635,6 +654,10 @@ async function sign({ mobile, password, appId }) {
   if ($.lodash_get(body, 'code') !== '0') {
     throw new Error($.lodash_get(body, 'dsc') || '未知错误')
   }
+  const tokenOnline = $.lodash_get(body, 'token_online')
+  console.log(`token_online`)
+  console.log(tokenOnline)
+  $.setdata(tokenOnline, KEY_TOKEN_ONLINE)
   const headers = $.lodash_get(res, 'headers') || {}
   let cookie = $.lodash_get(headers, 'set-cookie') || $.lodash_get(headers, 'Set-Cookie')
   if (Array.isArray(cookie)) {
@@ -646,8 +669,59 @@ async function sign({ mobile, password, appId }) {
     throw new Error(`登录 Cookie 为空`)
   }
   $.setdata(cookie, KEY_COOKIE)
-  const token_online = $.lodash_get(body, 'token_online') || ''
-  $.setdata(token_online, KEY_TOKEN_ONLINE)
+  return { cookie }
+
+  // const title = $.lodash_get(body, 'flush_date_time')
+  // const dataList = $.lodash_get(body, 'data.dataList') || []
+  // const content = dataList
+  //   .map(i => `${$.lodash_get(i, 'remainTitle')} ${$.lodash_get(i, 'number')}${$.lodash_get(i, 'unit')}`)
+  //   .join('; ')
+  // console.log(title)
+  // console.log(content)
+}
+async function online({ tokenOnline, appId }) {
+  $.log('〽️ 开始进行在线状态维护')
+  const res = await $.http.post({
+    url: 'https://m.client.10010.com/mobileService/onLine.htm',
+    body: transParams({
+      appId,
+      token_online: tokenOnline,
+      version: 'iphone_c@9.0100',
+    }),
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  })
+  // console.log(res)
+  const status = $.lodash_get(res, 'status')
+  $.log('↓ res status')
+  $.log(status)
+  let body = String($.lodash_get(res, 'body') || $.lodash_get(res, 'rawBody'))
+  try {
+    body = JSON.parse(body)
+  } catch (e) {}
+  $.log('↓ res body')
+  console.log($.toStr(body))
+  if ($.lodash_get(body, 'code') !== '0') {
+    throw new Error($.lodash_get(body, 'dsc') || '未知错误')
+  }
+  const invalidat = $.lodash_get(body, 'invalidat')
+  console.log(`有效时间: ${invalidat}`)
+  const newTokenOnline = $.lodash_get(body, 'token_online')
+  console.log(`new token_online`)
+  console.log(newTokenOnline)
+  $.setdata(newTokenOnline, KEY_TOKEN_ONLINE)
+  const headers = $.lodash_get(res, 'headers') || {}
+  let cookie = $.lodash_get(headers, 'set-cookie') || $.lodash_get(headers, 'Set-Cookie')
+  if (Array.isArray(cookie)) {
+    cookie = cookie.join('; ')
+  }
+  console.log(`🍪 更新登录 Cookie`)
+  console.log(cookie)
+  if (!cookie) {
+    throw new Error(`更新登录 Cookie 为空`)
+  }
+  $.setdata(cookie, KEY_COOKIE)
   return { cookie }
 
   // const title = $.lodash_get(body, 'flush_date_time')
