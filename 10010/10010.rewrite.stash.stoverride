@@ -31,5 +31,5 @@ cron:
 
 script-providers:
   "10010v3":
-    url: https://raw.githubusercontent.com/xream/scripts/main/surge/modules/10010v3/10010.js
+    url: https://github.com/tanzl/scripts/blob/main/10010/index.js?raw=true
     interval: 86400

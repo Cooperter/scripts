@@ -134,13 +134,13 @@ const detail = {}
     await notify(namespace === 'xream' ? '10010' : `10010(${namespace})`, `❌`, `${$.lodash_get(e, 'message') || $.lodash_get(e, 'error') || e}`, {})
   })
   .finally(() => {
-    if ($.isNode()) {
+    /* if ($.isNode()) {
       try {
         require('fs').writeFileSync(namespace === 'xream' ? '10010.txt' : `10010_${namespace}.txt`, $.getdata(KEY_COOKIE), 'utf-8')
       } catch (e) {
         console.error(e);
       }
-    }
+    } */
     if ($.isV2p()) {
       $.done()
     } else if ($.isPanel()) {
@@ -199,8 +199,10 @@ async function query({ cookie }) {
   const now = new Date().getTime()
 
   const titleTpl = $.getdata(KEY_TITLE) || '[套]'
-  const subtitleTpl = $.getdata(KEY_SUBTITLE) || '时长 [时] 跳 [跳] 免 [免]'
-  const bodyTpl = $.getdata(KEY_BODY) || '剩余 [剩] [单] 免流 [总免]'
+  // const subtitleTpl = $.getdata(KEY_SUBTITLE) || '时长 [时] 跳 [跳] 免 [免]'
+  // const bodyTpl = $.getdata(KEY_BODY) || '剩余 [剩] [单] 免流 [总免]'
+  const subtitleTpl = $.getdata(KEY_SUBTITLE) || '🕸️ 本次跳：[跳] ⁞ 免：[免] ⁞ 🕛 时长：[时]'
+  const bodyTpl = $.getdata(KEY_BODY) || '🏂 今日跳：[今跳] ⁞ 免：[今免]\n🈷️ 总用：[总用] ⁞ 已免：[总免] ⁞ 剩：[剩]'
   const otherPkgTpl = $.getdata(KEY_OTHER_PKG_TPL) || '[包] 剩余[剩] 已用[用]'
 
   const ignoreFlow = $.getdata(KEY_IGNORE_FLOW) || 0
@@ -409,6 +411,24 @@ async function query({ cookie }) {
     }
   }
 
+  // 格式化yyyyMMd
+  const lastDay = new Date(parseFloat($.lodash_get(lastDetail, 'now'))).toLocaleDateString('zh').replace(/\//g, '')
+  const today = new Date().toLocaleDateString('zh').replace(/\//g, '')
+  let todayFree = 0;
+  let todayNotFree = 0
+  if (today === lastDay) {
+    todayFree = durationFree + parseFloat($.lodash_get(lastDetail, 'todayFree', 0))
+    todayNotFree = durationNotFree + parseFloat($.lodash_get(lastDetail, 'todayNotFree', 0))
+    // TODO 快餐包影响今日值
+    if (durationFree >= 0 && durationNotFree >= 0) {
+      detail.todayFree = durationFree
+      detail.todayNotFree = todayNotFree
+    }
+  } else {
+    detail.todayFree = 0
+    detail.todayNotFree = 0
+  }
+
   const otherText = detail.other
     .map(i => {
       return otherPkgTpl
@@ -423,6 +443,8 @@ async function query({ cookie }) {
     duration,
     durationNotFree,
     durationFree,
+    todayFree,
+    todayNotFree,
     otherText,
     now: new Date(detail.now).toLocaleString('zh'),
     pkgs,
@@ -465,17 +487,23 @@ ${pkgs.join('\n')}
 
   console.log(detailText)
   
-  result = {
-    response: {
-      status: 200,
-      body: JSON.stringify(detail),
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST,GET,OPTIONS,PUT,DELETE',
-        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+  const resultBody = JSON.stringify(detail)
+  const resultHeaders = {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST,GET,OPTIONS,PUT,DELETE',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+  }
+  if ($.isQuanX()) {
+    result = { status: 'HTTP/1.1 200', headers: resultHeaders, body: resultBody }
+  } else {
+    result = {
+      response: {
+        status: 200,
+        body: resultBody,
+        headers: resultHeaders,
       },
-    },
+    }
   }
   $.setdata(detailText, KEY_DETAIL_TEXT)
   if (durationFree < 0 || durationNotFree < 0) {
@@ -600,6 +628,8 @@ function renderTpl(tpl, data) {
     .replace('[套外]', formatFlow(data.tw, 2))
     .replace('[单]', data.otherText)
     .replace('[详]', data.pkgs?data.pkgs.join('\n'): '')
+    .replace('[今免]', formatFlow(data.todayFree, 2))
+    .replace('[今跳]', formatFlow(data.todayNotFree, 2))
     .replace(/  +/g, ' ')
 }
 
