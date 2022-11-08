@@ -411,17 +411,15 @@ async function query({ cookie }) {
     }
   }
 
-  // 格式化yyyyMMd
-  const lastDay = new Date(parseFloat($.lodash_get(lastDetail, 'now'))).toLocaleDateString('zh').replace(/\//g, '')
-  const today = new Date().toLocaleDateString('zh').replace(/\//g, '')
+  const lastDay = $.time('yyyyMMdd', parseFloat($.lodash_get(lastDetail, 'now')))
+  const today = $.time('yyyyMMdd')
   let todayFree = 0;
   let todayNotFree = 0
   if (today === lastDay) {
     todayFree = durationFree + parseFloat($.lodash_get(lastDetail, 'todayFree', 0))
     todayNotFree = durationNotFree + parseFloat($.lodash_get(lastDetail, 'todayNotFree', 0))
-    // TODO 快餐包影响今日值
-    if (durationFree >= 0 && durationNotFree >= 0) {
-      detail.todayFree = durationFree
+    if (todayFree >= 0 && todayNotFree >= 0) {
+      detail.todayFree = todayFree
       detail.todayNotFree = todayNotFree
     }
   } else {
