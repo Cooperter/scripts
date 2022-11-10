@@ -199,10 +199,8 @@ async function query({ cookie }) {
   const now = new Date().getTime()
 
   const titleTpl = $.getdata(KEY_TITLE) || '[套]'
-  // const subtitleTpl = $.getdata(KEY_SUBTITLE) || '时长 [时] 跳 [跳] 免 [免]'
-  // const bodyTpl = $.getdata(KEY_BODY) || '剩余 [剩] [单] 免流 [总免]'
-  const subtitleTpl = $.getdata(KEY_SUBTITLE) || '🕸️ 本次跳：[跳] ⁞ 免：[免] ⁞ 🕛 时长：[时]'
-  const bodyTpl = $.getdata(KEY_BODY) || '🏂 今日跳：[今跳] ⁞ 免：[今免]\n🈷️ 总用：[总用] ⁞ 已免：[总免] ⁞ 剩：[剩]'
+  const subtitleTpl = $.getdata(KEY_SUBTITLE) || '时长 [时] 跳 [跳] 免 [免]'
+  const bodyTpl = $.getdata(KEY_BODY) || '剩余 [剩] [单] 免流 [总免]'
   const otherPkgTpl = $.getdata(KEY_OTHER_PKG_TPL) || '[包] 剩余[剩] 已用[用]'
 
   const ignoreFlow = $.getdata(KEY_IGNORE_FLOW) || 0
@@ -415,9 +413,11 @@ async function query({ cookie }) {
   const today = $.time('yyyyMMdd')
   let todayFree = 0;
   let todayNotFree = 0
+  let todaySum = 0
   if (today === lastDay) {
     todayFree = durationFree + parseFloat($.lodash_get(lastDetail, 'todayFree', 0))
     todayNotFree = durationNotFree + parseFloat($.lodash_get(lastDetail, 'todayNotFree', 0))
+    todaySum = todayFree + todayNotFree
     if (todayFree >= 0 && todayNotFree >= 0) {
       detail.todayFree = todayFree
       detail.todayNotFree = todayNotFree
@@ -441,8 +441,7 @@ async function query({ cookie }) {
     duration,
     durationNotFree,
     durationFree,
-    todayFree,
-    todayNotFree,
+    todaySum,
     otherText,
     now: new Date(detail.now).toLocaleString('zh'),
     pkgs,
@@ -628,6 +627,7 @@ function renderTpl(tpl, data) {
     .replace('[详]', data.pkgs?data.pkgs.join('\n'): '')
     .replace('[今免]', formatFlow(data.todayFree, 2))
     .replace('[今跳]', formatFlow(data.todayNotFree, 2))
+    .replace('[今总]', formatFlow(data.todaySum, 2))
     .replace(/  +/g, ' ')
 }
 
