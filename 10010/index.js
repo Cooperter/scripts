@@ -393,6 +393,7 @@ async function query({ cookie }) {
     return
   }
   let duration = 0
+  let durationSum = 0
   let durationFree = 0
   let durationNotFree = 0
   let durationRemain = 0
@@ -400,10 +401,11 @@ async function query({ cookie }) {
   if (lastDetail) {
     duration = (now - parseFloat($.lodash_get(lastDetail, 'now'))) / 1000 / 60
     if (!isNaN(duration) && duration > 0) {
+      durationSum = parseFloat(detail.sum) - parseFloat($.lodash_get(lastDetail, 'sum'))
       durationFree = parseFloat(detail.free) - parseFloat($.lodash_get(lastDetail, 'free'))
       durationTw = parseFloat(detail.tw) - parseFloat($.lodash_get(lastDetail, 'tw'))
       durationRemain = parseFloat($.lodash_get(lastDetail, 'remain')) - parseFloat(detail.remain)
-      durationNotFree = durationRemain + durationTw
+      durationNotFree = durationSum - durationFree
     } else {
       duration = 0
     }
