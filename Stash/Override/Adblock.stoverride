@@ -1,0 +1,12 @@
+http:
+  url-rewrite:
+    # 车来了
+    - ^https?:\/\/cdn\.\w{3}\.chelaileapp\.cn\/(api\/)?adpub reject-dict
+    - ^https?:\/\/api.chelaile.net.cn\/adpub\/ reject
+    - ^https?:\/\/api.chelaile.net.cn\/goocity\/advert\/ reject
+    - ^https?:\/\/atrace.chelaile.net.cn\/adpub\/ reject
+    - ^https?:\/\/atrace.chelaile.net.cn\/exhibit\?&adv_image reject
+    - ^https?:\/\/pic1.chelaile.net.cn\/adv\/ reject
+    # 深圳通微信小程序
+    - ^https?:\/\/wxsnsdy\.wxs\.qq\.com reject-200
+    - ^https?:\/\/wxsnsdythumb\.wxs\.qq\.com\/[0-9]{3}\/[0-9]{5}\/snscosdownload\/SZ\/reserved reject-200

@@ -1,2 +1,2 @@
-# sub-scripts
-sub-store自用脚本
+# scripts
+自用脚本

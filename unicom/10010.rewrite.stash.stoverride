@@ -31,5 +31,5 @@ cron:
 
 script-providers:
   "10010v3":
-    url: https://github.com/tanzl/scripts/blob/main/10010/index.js?raw=true
+    url: https://github.com/tanzl/scripts/blob/main/unicom/index.js?raw=true
     interval: 86400
