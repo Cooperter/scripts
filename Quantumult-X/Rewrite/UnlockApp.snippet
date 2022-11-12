@@ -1,10 +1,14 @@
+hostname = app.bilibili.com,pan.baidu.com,restore-access.indream.app,api.revenuecat.com
+
 # > BiliBili 解锁1080P高码率+4K畫質(番劇和影視除外)（2022-03-05）@ddgksf2013
 ^https?:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\? url script-response-body https://codeberg.org/ddgksf2013/Cuttlefish/raw/branch/master/Script/bilibili_json.js
+
 # > 百度云（2021-07-05）@ddgksf2013
 https:\/\/pan\.baidu\.com\/rest\/2\.0\/membership\/user url script-response-body https://codeberg.org/ddgksf2013/Cuttlefish/raw/branch/master/Crack/bdcloud.js
+
 # > Nicegram解鎖會員
 ^https?:\/\/restore-access\.indream\.app\/restoreAccess\?id=\w+$ url script-echo-response https://raw.githubusercontent.com/I-am-R-E/Functional-Store-Hub/Master/Nicegram/Script/Nicegram.js
+
 # > APTV-+解锁订阅
 https://api.revenuecat.com/v1/(receipts|subscribers)/* url script-response-body https://raw.githubusercontent.com/89996462/Quantumult-X/main/ycdz/APTV.js
-# > 儿童睡前故事 （2021-01-31） by ddgksf2013
-https://www.babybooks.top/v0/profile url script-response-body https://codeberg.org/ddgksf2013/Cuttlefish/raw/branch/master/Crack/etsqgs.js
+
