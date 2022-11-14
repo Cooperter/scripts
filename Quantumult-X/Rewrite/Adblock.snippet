@@ -12,7 +12,7 @@ hostname = yunbusiness.ccb.com, acs.m.taobao.com, gw.alicdn.com, gab.122.gov.cn,
 ^https:\/\/gab\.122\.gov\.cn\/eapp\/m\/sysquery url reject
 
 # > 高德地图
-^https?+:\/\/m\d\.amap\.com\/ws\/valueadded\/alimama\/splash_screen\/ url reject-200
+^https?:\/\/m\d\.amap\.com\/ws\/valueadded\/alimama\/splash_screen\/ url reject-200
 ^https?:\/\/m5\.amap\.com\/ws\/valueadded\/ url reject
 ^https?:\/\/optimus-ads\.amap\.com\/uploadimg\/ url reject
 
@@ -42,7 +42,7 @@ hostname = yunbusiness.ccb.com, acs.m.taobao.com, gw.alicdn.com, gab.122.gov.cn,
 ^(http|https):\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad url response-body "advertisement_num":\d,"advertisement_info":\[.+\], response-body "advertisement_num":0,"advertisement_info":[],
 ^https?:\/\/mp\.weixin\.qq\.com\/(s|mp)\/(ad_|advertisement|getappmsgad|report|appmsgreport|appmsgpicreport) url reject-img
 ^https?:\/\/mp\.weixin\.qq\.com\/mp\/(ad_|advertisement|getappmsgad) url reject
-^https?+:\/\/mp\.weixin\.qq\.com\/mp\/(?>ad_|advertisement|getappmsgad) url reject-200
+^https?:\/\/mp\.weixin\.qq\.com\/mp\/(?>ad_|advertisement|getappmsgad) url reject-200
 ^https?:\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad url response-body "advertisement_num":\d,"advertisement_info":\[.+\], response-body "advertisement_num":0,"advertisement_info":[]
 
 # > 微信跳过中间界面，支付宝链接、被封禁链接进行通知弹窗跳转，在微信中用快照显示被封禁的链接（可选），在微信中进行强制重定向（可选），群聊 / 扫码均可使用，可选项可在脚本 2、3 行更改，也可在 BoxJs 中更改。
@@ -52,7 +52,7 @@ hostname = yunbusiness.ccb.com, acs.m.taobao.com, gw.alicdn.com, gab.122.gov.cn,
 ^https:\/\/dss0.bdstatic.com\/-0U0bnSm1A5BphGlnYG\/ url reject-200
 ^https:\/\/dss0\.bdstatic\.com\/.+/tam-ogel\/.+\.(jpg|mp4) url reject
 ^https?:\/\/tb1.bdstatic.com\/tb\/cms\/ngmis\/adsense\/*.jpg url reject
-^https?+:\/\/ss0\.bdstatic\.com/.+?_\d{3}_\d{4}\.jpg url reject-200
+^https?:\/\/ss0\.bdstatic\.com/.+?_\d{3}_\d{4}\.jpg url reject-200
 ^https?:\/\/gss0\.bdstatic\.com\/.+?\/static\/wiseindex\/img\/bd_red_packet\.png url reject-img
 ^https?:\/\/tb2\.bdstatic\.com\/tb\/mobile\/spb\/widget\/jump url reject-img
 
@@ -89,7 +89,7 @@ hostname = yunbusiness.ccb.com, acs.m.taobao.com, gw.alicdn.com, gab.122.gov.cn,
 ^https?:\/\/staticlive.douyucdn.cn\/.+\/getStartSend url reject
 ^https?:\/\/staticlive.douyucdn.cn\/upload\/signs\/ url reject
 ^https?:\/\/douyucdn.cn\/.+\/appapi\/getinfo url reject
-^https?+:\/\/rtbapi\.douyucdn\.cn\/japi\/sign\/app\/getinfo url reject-200
+^https?:\/\/rtbapi\.douyucdn\.cn\/japi\/sign\/app\/getinfo url reject-200
 ^https?:\/\/capi.douyucdn.cn\/lapi\/sign\/app(api)?\/getinfo\?client_sys=ios url reject
 ^https?:\/\/capi\.douyucdn\.cn\/api\/ios_app\/check_update url reject-img
 ^https?:\/\/capi\.douyucdn\.cn\/api\/v1\/getStartSend?client_sys=ios url reject-img
@@ -105,11 +105,11 @@ hostname = yunbusiness.ccb.com, acs.m.taobao.com, gw.alicdn.com, gab.122.gov.cn,
 ^https?:\/\/lives\.l\.qq\.com\/livemsg\?sdtfrom= url reject-img
 ^https?:\/\/imgcache\.qq\.com\/qqlive\/ url reject-img
 ^https?:\/\/mtteve\.beacon\.qq\.com\/analytics url reject-img
-^https?+:\/\/vv\.video\.qq\.com\/getvmind\? url reject-200
-^https?+:\/\/ssl\.kohsocialapp\.qq\.com:10001\/game\/buttons url reject-200
-^https?+:\/\/qt\.qq\.com\/lua\/mengyou\/get_splash_screen_info url reject-200
-^https?+:\/\/3gimg\.qq\.com\/tencentMapTouch\/app\/activity\/ url reject-200
-^https?+:\/\/3gimg\.qq\.com\/tencentMapTouch\/splash\/ url reject-200
+^https?:\/\/vv\.video\.qq\.com\/getvmind\? url reject-200
+^https?:\/\/ssl\.kohsocialapp\.qq\.com:10001\/game\/buttons url reject-200
+^https?:\/\/qt\.qq\.com\/lua\/mengyou\/get_splash_screen_info url reject-200
+^https?:\/\/3gimg\.qq\.com\/tencentMapTouch\/app\/activity\/ url reject-200
+^https?:\/\/3gimg\.qq\.com\/tencentMapTouch\/splash\/ url reject-200
 ^https?:\/\/.+?\.l\.qq\.com url reject
 ^https?:\/\/\w+\.gdt\.qq\.com url reject
 ^https?:\/\/y\.gtimg\.cn\/music\/.*?_Ad/\d+\.png url reject-img
@@ -125,9 +125,9 @@ hostname = yunbusiness.ccb.com, acs.m.taobao.com, gw.alicdn.com, gab.122.gov.cn,
 ^https?:\/\/intl\.iqiyi\.com\/ad_external\/ url reject
 ^https?:\/\/intl\.iqiyi\.com\/video\/advertise url reject
 ^https?:\/\/u\d\.iqiyipic\.com\/image\/[\w\/]+\/oad_ url reject
-^https?+:\/\/act\.vip\.iqiyi\.com\/interact\/api\/show\.do url reject-200
-^https?+:\/\/act\.vip\.iqiyi\.com\/interact\/api\/v2\/show url reject-200
-^https?+:\/\/iface\.iqiyi\.com\/api\/getNewAdInfo url reject-200
+^https?:\/\/act\.vip\.iqiyi\.com\/interact\/api\/show\.do url reject-200
+^https?:\/\/act\.vip\.iqiyi\.com\/interact\/api\/v2\/show url reject-200
+^https?:\/\/iface\.iqiyi\.com\/api\/getNewAdInfo url reject-200
 ^https?:\/\/iface2\.iqiyi\.com\/fusion\/3\.0\/fusion_switch url reject-img
 ^http:\/\/.+\.iqiyipic\.com\/image\/.+\/ad\/.+\.jpg url reject
 ^http:\/\/static-s\.iqiyi\.com\/common\/.+\/Small_video\/a2\/af\/.+\.png url reject
@@ -150,7 +150,7 @@ https?:\/\/t7z\.cupid\.iqiyi\.com\/show url reject
 ^https?:\/\/.+?\/omts.tc.qq.com\/ url reject
 ^https?:\/\/.+?\/variety.tc.qq.com\/ url reject
 ^https?:\/\/.+?\.tc\.qq\.com\/.+?_p20\d_ url reject
-^https?+:\/\/(?:(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/.+?\.tc\.qq\.com\/.+?p201\.1\.mp4\? url reject-200
+^https?:\/\/(?:(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/.+?\.tc\.qq\.com\/.+?p201\.1\.mp4\? url reject-200
 ^https?:\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/.+\.tc\.qq\.com\/.+p201\.1\.mp4\? url reject
 ^https?:\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/[a-z.]+\.tc\.qq\.com\/[\w\W]+=v3004 url reject
 ^https?:\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/[a-z.]+\.tc\.qq\.com\/[\w\W]+_p20\d url reject
@@ -184,7 +184,7 @@ https?:\/\/t7z\.cupid\.iqiyi\.com\/show url reject
 ^https?:\/\/bdsp-x\.jd\.com\/adx\/ url reject
 ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=(start|queryMaterialAdverts) url reject
 ^https?:\/\/(bdsp-x|dsp-x)\.jd\.com\/adx\/ url reject
-^https?+:\/\/api\.m\.jd\.com\/client\.action\?functionId=start$ url reject-200
+^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=start$ url reject-200
 ^https?:\/\/img\d+\.360buyimg\.com\/jddjadvertise\/ url reject
 ^https?:\/\/m15\.360buyimg\.com\/mobilecms\/jfs\/t1\/197429\/22\/22400\/119193\/62562ef0Eff59b4d4 url reject
 ^https?:\/\/m15\.360buyimg\.com\/mobilecms\/jfs\/t1\/220846\/5\/16214\/41327 url reject
@@ -215,17 +215,17 @@ https://api.m.jd.com/client.action\?functionId=lite_advertising url reject
 
 # > 淘宝
 ^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.taobao\.idle\.home\.welcome\/ url reject-200
-^https?+:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.tmall\.wireless url reject-200
-^https?+:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alibaba\.advertisementservice\.getadv url reject-200
-^https?+:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alimama\.etao\.config\.query\/ url response-body "ems_etao_advertise" response-body ""
-^https?+:\/\/acs\.m\.taobao\.com\/gw\/mtop\.film\.mtopadvertiseapi\.queryadvertise\/ url reject-200
-^https?+:\/\/acs\.m\.taobao\.com\/gw\/mtop\.o2o\.ad\.gateway\.get\/ url reject-200
-^https?+:\/\/acs\.m\.taobao\.com\/gw\/mtop\.trip\.activity\.querytmsresources\/ url reject-200
+^https?:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.tmall\.wireless url reject-200
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alibaba\.advertisementservice\.getadv url reject-200
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alimama\.etao\.config\.query\/ url response-body "ems_etao_advertise" response-body ""
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.film\.mtopadvertiseapi\.queryadvertise\/ url reject-200
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.o2o\.ad\.gateway\.get\/ url reject-200
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.trip\.activity\.querytmsresources\/ url reject-200
 
 # > 美团
-^https?+:\/\/img\.meituan\.net\/(?>adunion|display|midas)\/.+?\.(gif|jpg|jpg\.webp)$ url reject-200
-^https?+:\/\/p\d\.meituan\.net\/wmbanner\/[A-Za-z0-9]+?\.jpg url reject-200
-^https?+:\/\/p\d\.meituan\.net\/movie\/[A-Za-z0-9]+?\.jpg\?may_covertWebp url reject-200
+^https?:\/\/img\.meituan\.net\/(?>adunion|display|midas)\/.+?\.(gif|jpg|jpg\.webp)$ url reject-200
+^https?:\/\/p\d\.meituan\.net\/wmbanner\/[A-Za-z0-9]+?\.jpg url reject-200
+^https?:\/\/p\d\.meituan\.net\/movie\/[A-Za-z0-9]+?\.jpg\?may_covertWebp url reject-200
 ^https?:\/\/s3plus\.meituan\.net\/.+?\/linglong\/ url reject
 ^https?:\/\/s3plus\.meituan\.net\/v1\/mss_a002 url reject-img
 ^https?:\/\/www\.meituan\.com\/api\/v\d\/appstatus\? url reject

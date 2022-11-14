@@ -117,13 +117,13 @@ http:
     - ^https?:\/\/mp\.weixin\.qq.com\/mp\/advertisement_report - reject
     - ^https?:\/\/mp\.weixin\.qq\.com\/(s|mp)\/(ad_|advertisement|getappmsgad|report|appmsgreport|appmsgpicreport) - reject-img
     - ^https?:\/\/mp\.weixin\.qq\.com\/mp\/(ad_|advertisement|getappmsgad) - reject
-    - ^https?+:\/\/mp\.weixin\.qq\.com\/mp\/(?>ad_|advertisement|getappmsgad) - reject-200
+    - ^https?:\/\/mp\.weixin\.qq\.com\/mp\/(?>ad_|advertisement|getappmsgad) - reject-200
 
     # > 百度地图
     - ^https:\/\/dss0.bdstatic.com\/-0U0bnSm1A5BphGlnYG\/ - reject-200
     - ^https:\/\/dss0\.bdstatic\.com\/.+/tam-ogel\/.+\.(jpg|mp4) - reject
     - ^https?:\/\/tb1.bdstatic.com\/tb\/cms\/ngmis\/adsense\/*.jpg - reject
-    - ^https?+:\/\/ss0\.bdstatic\.com/.+?_\d{3}_\d{4}\.jpg - reject-200
+    - ^https?:\/\/ss0\.bdstatic\.com/.+?_\d{3}_\d{4}\.jpg - reject-200
     - ^https?:\/\/gss0\.bdstatic\.com\/.+?\/static\/wiseindex\/img\/bd_red_packet\.png - reject-img
     - ^https?:\/\/tb2\.bdstatic\.com\/tb\/mobile\/spb\/widget\/jump - reject-img
 
@@ -156,7 +156,7 @@ http:
     - ^https?:\/\/staticlive.douyucdn.cn\/.+\/getStartSend - reject
     - ^https?:\/\/staticlive.douyucdn.cn\/upload\/signs\/ - reject
     - ^https?:\/\/douyucdn.cn\/.+\/appapi\/getinfo - reject
-    - ^https?+:\/\/rtbapi\.douyucdn\.cn\/japi\/sign\/app\/getinfo - reject-200
+    - ^https?:\/\/rtbapi\.douyucdn\.cn\/japi\/sign\/app\/getinfo - reject-200
     - ^https?:\/\/capi.douyucdn.cn\/lapi\/sign\/app(api)?\/getinfo\?client_sys=ios - reject
     - ^https?:\/\/capi\.douyucdn\.cn\/api\/ios_app\/check_update - reject-img
     - ^https?:\/\/capi\.douyucdn\.cn\/api\/v1\/getStartSend?client_sys=ios - reject-img
@@ -172,11 +172,11 @@ http:
     - ^https?:\/\/lives\.l\.qq\.com\/livemsg\?sdtfrom= - reject-img
     - ^https?:\/\/imgcache\.qq\.com\/qqlive\/ - reject-img
     - ^https?:\/\/mtteve\.beacon\.qq\.com\/analytics - reject-img
-    - ^https?+:\/\/vv\.video\.qq\.com\/getvmind\? - reject-200
-    - ^https?+:\/\/ssl\.kohsocialapp\.qq\.com:10001\/game\/buttons - reject-200
-    - ^https?+:\/\/qt\.qq\.com\/lua\/mengyou\/get_splash_screen_info - reject-200
-    - ^https?+:\/\/3gimg\.qq\.com\/tencentMapTouch\/app\/activity\/ - reject-200
-    - ^https?+:\/\/3gimg\.qq\.com\/tencentMapTouch\/splash\/ - reject-200
+    - ^https?:\/\/vv\.video\.qq\.com\/getvmind\? - reject-200
+    - ^https?:\/\/ssl\.kohsocialapp\.qq\.com:10001\/game\/buttons - reject-200
+    - ^https?:\/\/qt\.qq\.com\/lua\/mengyou\/get_splash_screen_info - reject-200
+    - ^https?:\/\/3gimg\.qq\.com\/tencentMapTouch\/app\/activity\/ - reject-200
+    - ^https?:\/\/3gimg\.qq\.com\/tencentMapTouch\/splash\/ - reject-200
     - ^https?:\/\/.+?\.l\.qq\.com - reject
     - ^https?:\/\/\w+\.gdt\.qq\.com - reject
     - ^https?:\/\/y\.gtimg\.cn\/music\/.*?_Ad/\d+\.png - reject-img
@@ -192,9 +192,9 @@ http:
     - ^https?:\/\/intl\.iqiyi\.com\/ad_external\/ - reject
     - ^https?:\/\/intl\.iqiyi\.com\/video\/advertise - reject
     - ^https?:\/\/u\d\.iqiyipic\.com\/image\/[\w\/]+\/oad_ - reject
-    - ^https?+:\/\/act\.vip\.iqiyi\.com\/interact\/api\/show\.do - reject-200
-    - ^https?+:\/\/act\.vip\.iqiyi\.com\/interact\/api\/v2\/show - reject-200
-    - ^https?+:\/\/iface\.iqiyi\.com\/api\/getNewAdInfo - reject-200
+    - ^https?:\/\/act\.vip\.iqiyi\.com\/interact\/api\/show\.do - reject-200
+    - ^https?:\/\/act\.vip\.iqiyi\.com\/interact\/api\/v2\/show - reject-200
+    - ^https?:\/\/iface\.iqiyi\.com\/api\/getNewAdInfo - reject-200
     - ^https?:\/\/iface2\.iqiyi\.com\/fusion\/3\.0\/fusion_switch - reject-img
     - ^http:\/\/.+\.iqiyipic\.com\/image\/.+\/ad\/.+\.jpg - reject
     - ^http:\/\/static-s\.iqiyi\.com\/common\/.+\/Small_video\/a2\/af\/.+\.png - reject
@@ -217,7 +217,7 @@ http:
     - ^https?:\/\/.+?\/omts.tc.qq.com\/ - reject
     - ^https?:\/\/.+?\/variety.tc.qq.com\/ - reject
     - ^https?:\/\/.+?\.tc\.qq\.com\/.+?_p20\d_ - reject
-    - ^https?+:\/\/(?:(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/.+?\.tc\.qq\.com\/.+?p201\.1\.mp4\? - reject-200
+    - ^https?:\/\/(?:(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/.+?\.tc\.qq\.com\/.+?p201\.1\.mp4\? - reject-200
     - ^https?:\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/.+\.tc\.qq\.com\/.+p201\.1\.mp4\? - reject
     - ^https?:\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/[a-z.]+\.tc\.qq\.com\/[\w\W]+=v3004 - reject
     - ^https?:\/\/((25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\/[a-z.]+\.tc\.qq\.com\/[\w\W]+_p20\d - reject
@@ -250,7 +250,7 @@ http:
     - ^https?:\/\/bdsp-x\.jd\.com\/adx\/ - reject
     - ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=(start|queryMaterialAdverts) - reject
     - ^https?:\/\/(bdsp-x|dsp-x)\.jd\.com\/adx\/ - reject
-    - ^https?+:\/\/api\.m\.jd\.com\/client\.action\?functionId=start$ - reject-200
+    - ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=start$ - reject-200
     - ^https?:\/\/img\d+\.360buyimg\.com\/jddjadvertise\/ - reject
     - ^https?:\/\/m15\.360buyimg\.com\/mobilecms\/jfs\/t1\/197429\/22\/22400\/119193\/62562ef0Eff59b4d4 - reject
     - ^https?:\/\/m15\.360buyimg\.com\/mobilecms\/jfs\/t1\/220846\/5\/16214\/41327 - reject
@@ -276,17 +276,17 @@ http:
 
     # > 淘宝
     - ^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.taobao\.idle\.home\.welcome\/ - reject-200
-    - ^https?+:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.tmall\.wireless - reject-200
-    - ^https?+:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alibaba\.advertisementservice\.getadv - reject-200
-    - ^https?+:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alimama\.etao\.config\.query\/ response-replace "ems_etao_advertise" ""
-    - ^https?+:\/\/acs\.m\.taobao\.com\/gw\/mtop\.film\.mtopadvertiseapi\.queryadvertise\/ - reject-200
-    - ^https?+:\/\/acs\.m\.taobao\.com\/gw\/mtop\.o2o\.ad\.gateway\.get\/ - reject-200
-    - ^https?+:\/\/acs\.m\.taobao\.com\/gw\/mtop\.trip\.activity\.querytmsresources\/ - reject-200
+    - ^https?:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.tmall\.wireless - reject-200
+    - ^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alibaba\.advertisementservice\.getadv - reject-200
+    - ^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alimama\.etao\.config\.query\/ response-replace "ems_etao_advertise" ""
+    - ^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.film\.mtopadvertiseapi\.queryadvertise\/ - reject-200
+    - ^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.o2o\.ad\.gateway\.get\/ - reject-200
+    - ^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.trip\.activity\.querytmsresources\/ - reject-200
 
     # > 美团
-    - ^https?+:\/\/img\.meituan\.net\/(?>adunion|display|midas)\/.+?\.(gif|jpg|jpg\.webp)$ - reject-200
-    - ^https?+:\/\/p\d\.meituan\.net\/wmbanner\/[A-Za-z0-9]+?\.jpg - reject-200
-    - ^https?+:\/\/p\d\.meituan\.net\/movie\/[A-Za-z0-9]+?\.jpg\?may_covertWebp - reject-200
+    - ^https?:\/\/img\.meituan\.net\/(?>adunion|display|midas)\/.+?\.(gif|jpg|jpg\.webp)$ - reject-200
+    - ^https?:\/\/p\d\.meituan\.net\/wmbanner\/[A-Za-z0-9]+?\.jpg - reject-200
+    - ^https?:\/\/p\d\.meituan\.net\/movie\/[A-Za-z0-9]+?\.jpg\?may_covertWebp - reject-200
     - ^https?:\/\/s3plus\.meituan\.net\/.+?\/linglong\/ - reject
     - ^https?:\/\/s3plus\.meituan\.net\/v1\/mss_a002 - reject-img
     - ^https?:\/\/www\.meituan\.com\/api\/v\d\/appstatus\? - reject
