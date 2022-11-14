@@ -229,8 +229,6 @@ http:
     - ^https:\/\/www\.xiaohongshu\.com\/api\/sns\/v1\/tag\/ads_engage* - reject
     - ^https:\/\/www\.xiaohongshu\.com\/api\/sns\/v1\/ads\/resource* - reject
     - ^https:\/\/pages\.xiaohongshu\.com\/data\/native\/matrix_switches* - reject
-    - ^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/search\/hot_list response-replace-regex items":\[.+\] items":[]
-    - ^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v\d\/search\/trending response-replace-regex queries":\[.+\] queries":[]
 
     # > 京东
     - ^https?:\/\/m15\.360buyimg\.com\/mobilecms\/jfs\/t1\/202220\/24\/21575\/134711\/625b821bE5d642d73\/77636692989bd2be\.jpg - reject
@@ -241,8 +239,6 @@ http:
     - ^https?:\/\/m\.360buyimg\.com\/mobilecms\/s1125x2436_jfs - reject
     - ^https?:\/\/m15\.360buyimg\.com\/mobilecms\/jfs\/t1\/197429\/22/22400\/119193\/62562ef0Eff59b4d4 - reject
     - ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=start$ - reject-array
-    - ^https?://union\.click\.jd\.com/jda? request-replace-regex ^(.+?\s).+?(\s[\s\S]+?Host:).+?(\r\n) $1/jda?adblock=$2union.click.jd.com$3
-    - ^https?://union\.click\.jd\.com/sem.php? request-replace-regex ^(.+?\s).+?(\s[\s\S]+?Host:).+?(\r\n) $1/sem.php?adblock=$2union.click.jd.com$3
     - ^https?:\/\/ms\.jr\.jd\.com\/gw\/generic\/(aladdin\/na\/m\/getLoadingPicture|aladdin\/na\/m\/getLoadingPicture) - reject
     - ^https?:\/\/ms\.jr\.jd\.com\/gw\/generic\/aladdin\/na\/m\/getLoadingPicture - reject
     - ^https?:\/\/ms\.jr\.jd\.com\/gw\/generic\/base\/(new)?na\/m\/adInfo - reject
@@ -278,7 +274,6 @@ http:
     - ^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.taobao\.idle\.home\.welcome\/ - reject-200
     - ^https?:\/\/guide-acs\.m\.taobao\.com\/gw\/mtop\.tmall\.wireless - reject-200
     - ^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alibaba\.advertisementservice\.getadv - reject-200
-    - ^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alimama\.etao\.config\.query\/ response-replace "ems_etao_advertise" ""
     - ^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.film\.mtopadvertiseapi\.queryadvertise\/ - reject-200
     - ^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.o2o\.ad\.gateway\.get\/ - reject-200
     - ^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.trip\.activity\.querytmsresources\/ - reject-200
