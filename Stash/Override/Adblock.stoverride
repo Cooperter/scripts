@@ -2,7 +2,7 @@ name: 去广告
 desc: 常用广告去除
 
 http:
-  mimt:
+  mitm:
     - *.chelaile.net.cn
     - *.chelaileapp.cn
     - wxsnsdy.wxs.qq.com
