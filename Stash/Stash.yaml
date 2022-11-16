@@ -29,7 +29,7 @@ proxy-providers:
   #全部节点
   all-sub: &all-sub # 建立锚点
     <<: *remote-resources-default-config
-    url: ""
+    url: "https://sub.store/download/collection/daoxue"
     # 以下方法任选其一⚠️有Clash订阅优先使用方法二❗️
     # 1.可以使用任意类型的链接仅替换上面文字，多个链接使用英文符号的竖杠|隔开一起写上即可
     # 2.Sub-Store与Clash类型订阅链接替换掉整个引号""内的链接
@@ -122,14 +122,6 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png
     proxies:
       *C
-
-  - name: 网易云音乐
-    type: relay
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netease_Music_Unlock.png
-    url: 'http://interface3.music.163.com'
-    proxies:
-      - 国内免流
-      - 网易云节点
 
   - name: AdBlock
     type: select

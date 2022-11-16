@@ -3,6 +3,6 @@
 proxies:
   - {"name":"🇨🇳 广东广州","type":"http","server":"157.255.78.51","port":443,"headers":{"User-Agent":"baiduboxapp"}}
   - {"name":"🇨🇳 江苏苏州","type":"http","server":"157.0.148.53","port":443,"headers":{"User-Agent":"baiduboxapp"}}
-  - {"name":"🇨🇳 江苏南京","type":"http""server":"153.3.236.22","port":443,"headers":{"User-Agent":"baiduboxapp"}}
-  - {"name":"🇨🇳 河北保定1","type":"http""server":"110.242.70.68","port":443,"headers":{"User-Agent":"baiduboxapp"}}
-  - {"name":"🇨🇳 河北保定2","type":"http""server":"110.242.70.69","port":443,"headers":{"User-Agent":"baiduboxapp"}}
+  - {"name":"🇨🇳 江苏南京","type":"http","server":"153.3.236.22","port":443,"headers":{"User-Agent":"baiduboxapp"}}
+  - {"name":"🇨🇳 河北保定1","type":"http","server":"110.242.70.68","port":443,"headers":{"User-Agent":"baiduboxapp"}}
+  - {"name":"🇨🇳 河北保定2","type":"http","server":"110.242.70.69","port":443,"headers":{"User-Agent":"baiduboxapp"}}
