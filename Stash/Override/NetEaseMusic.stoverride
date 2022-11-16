@@ -4,7 +4,7 @@ desc: 解锁灰色歌曲与VIP试听，使用后请在网易云音乐策略组�
 proxy-providers:
   Music:
     type: http
-    url: "https://raw.githubusercontent.com/I-am-R-E/Functional-Store-Hub/Master/NeteaseMusic/AgentNode/Stash.yaml"
+    url: "https://sub.store/download/UnblockNeteaseMusic"
     interval: 86400
     path: ./proxy/NetEaseMusic.yaml
     health-check:
