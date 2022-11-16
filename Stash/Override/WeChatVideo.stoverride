@@ -1,6 +1,9 @@
+name: 微信视频UDP分流
+desc: 将微信视频分流到支持UDP协议的Trojan,Snell节点，微信视频策略组手动选择Trojan,Snell节点
+
 script:
   shortcuts:
-    # 微信视频
+    # 微信视频, 目前不确定微信视频通话都是16285,只在本机测试过
     WeChatVideo: network == 'udp' and (dst_port == 16285)
 
 proxy-groups:
