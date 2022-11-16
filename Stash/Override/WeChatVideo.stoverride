@@ -1,0 +1,15 @@
+script:
+  shortcuts:
+    # 微信视频
+    WeChatVideo: network == 'udp' and (dst_port == 16285)
+
+proxy-groups:
+  - name: 微信视频
+    type: select
+    url: http://szshort.weixin.qq.com
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/WeChat.png
+    use:
+      - all-sub
+
+rules:
+  - SCRIPT,WeChatVideo,微信视频

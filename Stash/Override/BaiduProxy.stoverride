@@ -1,0 +1,30 @@
+name: 百度免流代理
+desc: 联通百度定向免流节点(自行测试)，节点来源于网络
+
+script:
+  shortcuts: 
+    baiduProxy: network == 'tcp' and (dst_port == 65 or dst_port == 80 or dst_port == 443 or dst_port == 2002 or dst_port == 4949 or dst_port == 5222 or dst_port == 5278 or dst_port == 6447 or dst_port == 8000 or dst_port == 8080 or dst_port == 8081 or dst_port == 8443 or dst_port == 9443 or dst_port == 11762 or dst_port == 14000 or dst_port == 21762 or dst_port == 31762 or dst_port == 33445 or dst_port == 41762 or dst_port == 49156 or dst_port == 51762 or dst_port == 61762) and (geoip(dst_ip if dst_ip != '' else resolve_ip(host)) == 'CN')
+
+proxy-providers:
+  baidu:
+    type: http
+    url: "https://raw.githubusercontent.com/tanzl/scripts/main/Stash/AgentNode/baidu.yaml"
+    interval: 86400
+    path: ./providers/baidu.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: http://m.baidu.com
+            
+proxy-groups:
+  - name: 百度免流
+    type: select
+    url: http://m.baidu.com
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cat.png
+    use:
+      - baidu
+
+rules:
+  - DOMAIN-SUFFIX,gov.cn,百度免流
+  - DOMAIN-SUFFIX,freenom.com,百度免流
+  - SCRIPT,baiduProxy,百度免流
