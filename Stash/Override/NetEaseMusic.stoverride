@@ -22,7 +22,7 @@ proxy-groups:
       - 网易云节点
   
   - name: 网易云节点
-    type: relay
+    type: select
     url: http://interface3.music.163.com
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netease_Music.png
     interval: 600
