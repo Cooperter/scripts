@@ -38,7 +38,11 @@ proxy-providers:
       enable: true
       interval: 600
       url: http://cp.cloudflare.com/generate_204
-   
+  # 国内节点
+  CN:
+    <<: *all-sub
+    filter: (?=.*(中|🇨🇳|CN|国内|(?i)China))^((?!(港|台|日|韩|新|美)).)*$
+
 dns:
   enable: true
   ipv6: false
