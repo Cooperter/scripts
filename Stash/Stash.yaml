@@ -173,7 +173,7 @@ rule-providers:
   ASN_China:
     <<: *remote-resources-default-config
     behavior: classical
-    url: "https://ghproxy.com/https://raw.githubusercontent.com/Coldvvater/Clash/master/RuleSet/ASN_China.yaml"
+    url: "https://raw.githubusercontent.com/Coldvvater/Mononoke/master/Stash/RuleSet/ASN_China.yaml"
     path: ./ruleset/ASN_China.yaml
 
   Telegram:
