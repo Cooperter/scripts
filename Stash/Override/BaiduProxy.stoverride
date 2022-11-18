@@ -8,7 +8,7 @@ script:
 proxy-providers:
   baidu:
     type: http
-    url: "https://raw.githubusercontent.com/tanzl/scripts/main/Stash/AgentNode/baidu.yaml"
+    url: "https://sub.store/download/baidu"
     interval: 86400
     path: ./providers/baidu.yaml
     health-check:
