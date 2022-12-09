@@ -1,0 +1,63 @@
+{
+  "id": "tanzl.app",
+  "name": "tanzl的订阅",
+  "author": "@tanzl",
+  "icon": "https://avatars.githubusercontent.com/u/16420435?s=120&v=4",
+  "repo": "https://github.com/tanzl/script",
+  "apps": [
+    {
+      "id": "testflight",
+      "name": "自动加入testflight",
+      "keys": [
+        "testflight.appId",
+        "testflight.qinglong.token",
+        "testflight.qinglong.url",
+        "testflight.qinglong.clientId",
+        "testflight.qinglong.clientSecret"
+      ],
+      "settings": [
+        {
+          "id": "testflight.appId",
+          "name": "APP ID",
+          "val": "",
+          "type": "text",
+          "desc": "为tf链接 https://testflight.apple.com/join/LPQmtkUs 的join后的字符串（也就是此例子的“LPQmtkUs”）如有多个请用英文逗号分隔, 例： LPQmtkUs,kjHJHK4f"
+        },
+        {
+          "id": "testflight.qinglong.token",
+          "name": "青龙登录token",
+          "val": "",
+          "type": "text",
+          "desc": "不需要手动填写"
+        },
+        {
+          "id": "testflight.qinglong.url",
+          "name": "青龙接口地址",
+          "val": "",
+          "type": "text",
+          "desc": "青龙面板启用，必须配置此项"
+        },
+        {
+          "id": "testflight.qinglong.clientId",
+          "name": "青龙客户端ID",
+          "val": "",
+          "type": "text",
+          "desc": "青龙面板启用，必须配置此项，详情见青龙面板=>系统设置=>应用设置: Client ID, 如没有则新建应用。"
+        },
+        {
+          "id": "testflight.qinglong.clientSecret",
+          "name": "青龙客户端密钥",
+          "val": "",
+          "type": "text",
+          "desc": "青龙面板启用，必须配置此项，详情见青龙面板=>系统设置=>应用设置: Client Secret, 如没有则新建应用。"
+        }
+      ],
+      "author": "@tanzl",
+      "repo": "https://github.com/tanzl/script",
+      "script": "https://raw.githubusercontent.com/tanzl/scripts/main/testflight/addEnvToQingLong.js",
+      "icons": [
+        "https://raw.githubusercontent.com/Orz-3/mini/master/Color/testflight.png"
+      ]
+    }
+  ]
+}
