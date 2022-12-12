@@ -47,17 +47,17 @@ async function autoPost(appId) {
       const status = $.lodash_get(resp, 'statusCode')
       $.log(`status: ${status}`)
       if (status === 404) {
-        let appIds = testflight.appId.split(",");
+        /* let appIds = testflight.appId.split(",");
         appIds = appIds.filter((appIds) => appIds !== appId);
         if ($.isNode()) {
           await updateQlEnvs(appIds.toString())
         } else {
           testflight.appId = appIds.toString()
           $.setjson(testflight, 'TEST_FLIGHT')
-        }
+        } */
 
-        console.log(appId + " " + "不存在该TF，已自动删除该APP_ID");
-        notify(appId, "不存在该TF", "已自动删除该APP_ID");
+        console.log(appId + "不存在该TF");
+        //notify(appId, "不存在该TF", "已自动删除该APP_ID");
         resolve()
       } else {
         let jsonData = JSON.parse($.lodash_get(resp, 'body'))
