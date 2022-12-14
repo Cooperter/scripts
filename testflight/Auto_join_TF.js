@@ -4,16 +4,20 @@
 //*********************************
 const $ = new Env("TestFlight自动加入");
 
+const TESTFLIGHT_APP_IDS = 'testflight.appIds'
+
 let testflight = ''
+let appIds = ''
 if ($.isNode()) {
   testflight = process.env.TEST_FLIGHT
   testflight = JSON.parse(testflight)
+  appIds = testflight.appIds
 } else {
   testflight = $.getjson('TEST_FLIGHT')
+  appIds = $.getdata(TESTFLIGHT_APP_IDS) || ''
 }
 
 !(async () => {
-  let appIds = testflight.appId
   $.log(`appId: ${appIds}`)
   if (appIds == "") {
     await notify("所有TF已加入完毕", "请手动关闭", "");
@@ -47,20 +51,18 @@ async function autoPost(appId) {
       const status = $.lodash_get(resp, 'statusCode')
       $.log(`status: ${status}`)
       if (status === 404) {
-        /* let appIds = testflight.appId.split(",");
-        appIds = appIds.filter((appIds) => appIds !== appId);
+        /* appIds = appIds.filter((appIds) => appIds !== appId);
         if ($.isNode()) {
           await updateQlEnvs(appIds.toString())
         } else {
-          testflight.appId = appIds.toString()
-          $.setjson(testflight, 'TEST_FLIGHT')
+          $.setdata(appIds.toString(), TESTFLIGHT_APP_IDS)
         } */
 
         console.log(appId + "不存在该TF");
         //notify(appId, "不存在该TF", "已自动删除该APP_ID");
         resolve()
       } else {
-        let jsonData = JSON.parse($.lodash_get(resp, 'body'))
+        let jsonData = JSON.parse(body)
         if (jsonData.data == null) {
           console.log(appId + " " + jsonData.messages[0].message);
         } else if (jsonData.data.status == "FULL") {
@@ -70,16 +72,14 @@ async function autoPost(appId) {
             const status = $.lodash_get(resp, 'statusCode')
             $.log(`status: ${status}`)
 
-            let jsonBody = JSON.parse($.lodash_get(resp, 'body'))
+            let jsonBody = JSON.parse(body)
             await notify(jsonBody.data.name, "TestFlight加入成功", "");
             console.log(jsonBody.data.name + " TestFlight加入成功");
-            let appIds = testflight.appId.split(",");
             appIds = appIds.filter((appIds) => appIds !== appId);
             if ($.isNode()) {
               await updateQlEnvs(appIds.toString())
             } else {
-              testflight.appId = appIds.toString()
-              $.setjson(testflight, 'TEST_FLIGHT')
+              $.setdata(appIds.toString(), TESTFLIGHT_APP_IDS)
             }
           })
         }
@@ -143,13 +143,13 @@ async function updateQlEnvs(appIds) {
   return new Promise((resolve, reject) => {
     $.post(options, (err, resp, data) => {
       if (err) {
-        $.logErr("TESTFLIGHT_APP_ID环境变量修改失败")
+        $.logErr("TestFlight App Id环境变量修改失败")
         reject(err)
       }
       $.log($.lodash_get(resp, 'body'))
       const code = JSON.parse(data).code
       if (code === 200) {
-        $.log('TESTFLIGHT_APP_ID环境变量修改成功')
+        $.log('TestFlight App Id环境变量修改成功')
       }
       resolve()
     });

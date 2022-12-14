@@ -9,7 +9,7 @@
       "id": "testflight",
       "name": "自动加入testflight",
       "keys": [
-        "testflight.appId",
+        "testflight.appIds",
         "testflight.qinglong.token",
         "testflight.qinglong.url",
         "testflight.qinglong.clientId",
@@ -17,8 +17,8 @@
       ],
       "settings": [
         {
-          "id": "testflight.appId",
-          "name": "APP ID",
+          "id": "testflight.appIds",
+          "name": "APP ID列表",
           "val": "",
           "type": "text",
           "desc": "为tf链接 https://testflight.apple.com/join/LPQmtkUs 的join后的字符串（也就是此例子的“LPQmtkUs”）如有多个请用英文逗号分隔, 例： LPQmtkUs,kjHJHK4f"

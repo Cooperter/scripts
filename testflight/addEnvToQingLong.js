@@ -1,6 +1,7 @@
 
 const $ = new Env("上传TestFlight账户信息至青龙");
 
+const TESTFLIGHT_APP_IDS = 'testflight.appIds'
 const TESTFLIGHT_QL_TOKEN = 'testflight.qinglong.token'
 const TESTFLIGHT_QL_URL = 'testflight.qinglong.url'
 const TESTFLIGHT_QL_CLIENT_ID = 'testflight.qinglong.clientId'
@@ -46,10 +47,11 @@ async function addQingLongEnvs() {
   let token = $.getdata(TESTFLIGHT_QL_TOKEN) || ''
   const url = $.getdata(TESTFLIGHT_QL_URL) || ''
   const testflight = $.getjson('TEST_FLIGHT')
-  const appId = $.lodash_get(testflight, 'appId') || ''
+  const appIds = $.getdata(TESTFLIGHT_APP_IDS) || ''
+  testflight.appIds = appIds
   
   console.log(`读取参数: ${JSON.stringify(testflight)}`)
-  if (appId) {
+  if (appIds) {
     let qlResult = null
     try {
       const res = await $.http.get({

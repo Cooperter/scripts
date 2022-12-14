@@ -14,8 +14,10 @@ const $ = new Env("获取TestFlight账户信息");
 const reg1 = /^https:\/\/testflight\.apple\.com\/v3\/accounts\/(.*)\/apps$/;
 const reg2 = /^https:\/\/testflight\.apple\.com\/join\/(.*)/;
 
+const TESTFLIGHT_APP_IDS = 'testflight.appIds'
+
 if (reg1.test($request.url)) {
-  const data = {}
+  const data = $.getjson('TEST_FLIGHT') || {}
   let url = $request.url;
   let key = url.replace(/(.*accounts\/)(.*)(\/apps)/, "$2");
   const headers = Object.keys($request.headers).reduce((t, i) => ((t[i.toLowerCase()] = $request.headers[i]), t), {});
@@ -39,24 +41,21 @@ if (reg1.test($request.url)) {
   console.log(`写入数据requestId:${$.lodash_get(testflight, 'requestId')}`);
   $.done();
 } else if (reg2.test($request.url)) {
-  const data = $.getjson('TEST_FLIGHT')
-  let appId = $.lodash_get(data, 'appId')
-  if (!appId) {
-    appId = "";
+  let appIds = $.getdata(TESTFLIGHT_APP_IDS) || ''
+  if (!appIds) {
+    appIds = "";
   }
-  let arr = appId.split(",");
+  let arr = appIds.split(",");
   const id = reg2.exec($request.url)[1];
   arr.push(id);
   arr = unique(arr).filter((a) => a);
   if (arr.length > 0) {
-    appId = arr.join(",");
+    appIds = arr.join(",");
   }
-  data.appId = appId
-  console.log(`读取加入前参数: ${JSON.stringify(data)}`)
-  $.setjson(data, 'TEST_FLIGHT')
+  $.setdata(appIds, TESTFLIGHT_APP_IDS)
 
-  console.log(`读取加入参数后: ${JSON.stringify($.getjson('TEST_FLIGHT'))}`)
-  $.msg("TestFlight自动加入", `已添加APP_ID: ${id}`, `当前ID: ${appId}`);
+  console.log(`读取appIds: ${$.getdata(TESTFLIGHT_APP_IDS)}`)
+  $.msg("TestFlight自动加入", `已添加APP_ID: ${id}`, `当前ID: ${appIds}`);
   $.done();
 }
 
