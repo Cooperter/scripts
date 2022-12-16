@@ -18,9 +18,12 @@
       "settings": [
         {
           "id": "testflight.appIds",
-          "name": "APP ID列表",
+          "name": "应用编号",
           "val": "",
-          "type": "text",
+          "type": "textarea",
+          "placeholder": "McBV96Wi,lNmLTx8d,ZfyeFB1S,srPJRks9,uEXBDwt2",
+          "autoGrow": true,
+          "rows": 5,
           "desc": "为tf链接 https://testflight.apple.com/join/LPQmtkUs 的join后的字符串（也就是此例子的“LPQmtkUs”）如有多个请用英文逗号分隔, 例： LPQmtkUs,kjHJHK4f"
         },
         {
@@ -56,6 +59,7 @@
       "repo": "https://github.com/tanzl/script",
       "script": "https://raw.githubusercontent.com/tanzl/scripts/main/testflight/addEnvToQingLong.js",
       "icons": [
+        "https://raw.githubusercontent.com/Orz-3/mini/master/Alpha/testflight.png",
         "https://raw.githubusercontent.com/Orz-3/mini/master/Color/testflight.png"
       ]
     }
