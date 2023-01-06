@@ -427,6 +427,7 @@ async function query({ cookie }) {
   } else {
     detail.todayFree = 0
     detail.todayNotFree = 0
+    $.setjson(detail, KEY_DETAIL)
   }
 
   const otherText = detail.other
@@ -472,6 +473,9 @@ ${pkgs.join('\n')}
 间隔时长: ${formatDuration(duration)}
 期间免流: ${formatFlow(durationFree, 2)}
 期间非免: ${formatFlow(durationNotFree, 2)}
+今日免流: ${formatFlow(todayFree, 2)}
+今日非免: ${formatFlow(todayNotFree, 2)}
+今日总流量: ${formatFlow(todaySum, 2)}
 流量变化忽略阈值: ${formatFlow(ignoreFlow, 2)}
 当前时间段内有*非免流*才会通知: ${remainFlowOnly}
 通知标题模板: ${titleTpl}
