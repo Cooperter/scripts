@@ -1,7 +1,7 @@
 function operator(proxies, targetPlatform) {
   const _ = lodash
 
-  const host = _.get($arguments, 'host', 'v3-l.bdxiguavod.com') // 西瓜视频
+  const host = _.get($arguments, 'host', '')
   const prefix = _.get($arguments, 'prefix')
   const suffix = _.get($arguments, 'suffix')
   const hostPrefix = _.get($arguments, 'hostPrefix')
@@ -9,8 +9,8 @@ function operator(proxies, targetPlatform) {
   const port = _.get($arguments, 'port')
   const portPrefix = _.get($arguments, 'portPrefix')
   const portSuffix = _.get($arguments, 'portSuffix')
-  const path = _.get($arguments, 'path', '/')
-  const method = _.get($arguments, 'method', 'GET')
+  const path = _.get($arguments, 'path')
+  const method = _.get($arguments, 'method')
   const defaultNetwork = _.get($arguments, 'network', 'http')
 
   return proxies.map((p = {}) => {
@@ -30,9 +30,9 @@ function operator(proxies, targetPlatform) {
       // vmess-http 设置默认值
       if (network === 'http') {
         _.set(p, 'network', network)
-        _.set(p, 'http-opts.path', _.get(p, 'http-opts.path', [path]))
-        _.set(p, 'http-opts.method', _.get(p, 'http-opts.method', method))
-        _.set(p, 'http-opts.headers.Host', _.get(p, 'http-opts.headers.Host', [host]))
+        _.set(p, 'http-opts.path', _.get(p, 'http-opts.path', ['/']))
+        _.set(p, 'http-opts.method', _.get(p, 'http-opts.method', 'GET'))
+        _.set(p, 'http-opts.headers.Host', _.get(p, 'http-opts.headers.Host', ['v6-ppx.ixigua.com']))
       }
 
       if (host) {
