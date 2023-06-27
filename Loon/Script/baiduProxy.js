@@ -94,6 +94,6 @@
      let conHost = $session.conHost
      let conPort = $session.conPort
  
-     var header = `CONNECT ${conHost}:${conPort} HTTP/1.1\r\nHost:${conHost}\r\nConnection: keep-alive\r\nUser-Agent: baiduboxapp\r\nProxy-Connection: keep-alive\r\n\r\n`
+     var header = `CONNECT ${conHost}:${conPort}HTTP/1.1\r\nConnection: keep-alive\r\nProxy-Connection: keep-alive\r\n\r\n`
      $tunnel.write($session, header)
  }
