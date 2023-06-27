@@ -93,7 +93,27 @@
  function _writeHttpHeader() {
      let conHost = $session.conHost
      let conPort = $session.conPort
+     let verify = createVerify(conHost);
  
-     var header = `CONNECT ${conHost}:${conPort} HTTP/1.1\r\nConnection: keep-alive\r\nProxy-Connection: keep-alive\r\n\r\n`
+     var header = `CONNECT ${conHost}:${conPort} HTTP/1.1\r\nHost: ${conHost}:${conPort}\r\nX-T5-Auth: ${verify}\r\nConnection: keep-alive\r\nProxy-Connection: keep-alive\r\n\r\n`
      $tunnel.write($session, header)
  }
+
+/*
+ * author : 星璃
+ * email  : StarColoredGlaze@outlook.com
+ * channel: https://t.me/ReFantasyCity
+ * time   : 2023-06-27
+ * desc   : 百度直连，动态生成验证，无任何干扰
+ */
+function createVerify(address) {
+  let index = 0;
+  for(let i = 0; i < address.length; i++) {
+    index = (index * 1318293 & 0x7FFFFFFF) + address.charCodeAt(i);
+  }
+  if(index < 0) {
+    index = index & 0x7FFFFFFF;
+  }
+  // console.log('Host: ' + address + 'X-T5-Auth: ' + index);
+  return index;
+}
