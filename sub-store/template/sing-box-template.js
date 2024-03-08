@@ -56,7 +56,7 @@ config.outbounds.map(outbound => {
       }
       const tags = getTags(proxies, tagRegex)
       log(`🕳 ${outbound.tag} 匹配 ${outboundRegex}, 插入 ${tags.length} 个 🏷 匹配 ${tagRegex} 的节点`)
-      outbound.outbounds = [...tags, outbound.outbounds]
+      outbound.outbounds = [...tags, ...outbound.outbounds]
     }
   })
 })
