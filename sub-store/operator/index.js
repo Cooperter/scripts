@@ -11,7 +11,7 @@ function operator(proxies, targetPlatform) {
   const portSuffix = _.get($arguments, 'portSuffix')
   const path = _.get($arguments, 'path')
   const method = _.get($arguments, 'method')
-  const defaultNetwork = _.get($arguments, 'network', 'http')
+  const defaultNetwork = _.get($arguments, 'network', 'tcp')
 
   return proxies.map((p = {}) => {
     const network = _.get(p, 'network', defaultNetwork)
