@@ -60,8 +60,6 @@ function operator(proxies, targetPlatform) {
           _.set(p, 'h2-opts.host', [host])
         } else if (network === 'http') {
           _.set(p, 'http-opts.headers.Host', [host])
-        } else {
-          _.set(p, `${network}-opts.headers.Host`, [host])
         }
       }
       if (method && network === 'http') {
