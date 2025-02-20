@@ -64,7 +64,11 @@ function operator(proxies, targetPlatform) {
         } else if (network === 'h2') {
           _.set(p, 'h2-opts.host', [host])
         } else if (network === 'http') {
-          _.set(p, 'http-opts.headers.Host', [host])
+          if (targetPlatform === 'Egern') {
+            _.set(p, 'http-opts.headers.Host', host)
+          } else {
+            _.set(p, 'http-opts.headers.Host', [host])
+          }
         }
       }
       if (method && network === 'http') {
@@ -87,7 +91,11 @@ function operator(proxies, targetPlatform) {
         } else if (network === 'h2') {
           _.set(p, 'h2-opts.path', path)
         } else if (network === 'http') {
-          _.set(p, 'http-opts.path', [path])
+          if (targetPlatform === 'Egern') {
+            _.set(p, 'http-opts.path', path)
+          } else {
+            _.set(p, 'http-opts.path', [path])
+          }
         } else {
           _.set(p, `${network}-opts.path`, path)
         }
