@@ -30,7 +30,7 @@ function operator(proxies, targetPlatform) {
       // vmess-http 设置默认值
       if (network === 'http') {
         _.set(p, 'network', network)
-        _.set(p, 'http-opts.path', _.get(p, 'http-opts.path', ['/']))
+        _.set(p, 'http-opts.path', _.get(p, 'http-opts.path', '/'))
         _.set(p, 'http-opts.method', _.get(p, 'http-opts.method', 'GET'))
         _.set(p, 'http-opts.headers.Host', _.get(p, 'http-opts.headers.Host', ['v6-ppx.ixigua.com']))
       }
