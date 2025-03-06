@@ -18,7 +18,7 @@ config.outbounds.push(...proxies);
 config.outbounds.map((i) => {
   if (["🚀 手动切换"].includes(i.tag)) {
     i.outbounds = [
-      ...getTags(proxies, /^((?!(🇨🇳|网易云|Music)).)*$/i),
+      ...getTags(proxies, /^((?!(🇨🇳|网易云|Music|shadowtls_shadowtls)).)*$/i),
       ...i.outbounds,
     ];
   }
